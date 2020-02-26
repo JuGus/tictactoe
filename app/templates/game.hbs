@@ -1,0 +1,29 @@
+<div class="mdl-card__supporting-text new-grid">
+  <div class="scores"><p>Scores:</p>
+    <MdlIcon @icon="close" @badge="{{this.getScores.x}}" />
+    <span><MdlIcon @icon="more_vert" /></span>
+    <MdlIcon @icon="panorama_fish_eye" @badge="{{this.getScores.o}}" />
+  </div>
+
+  <div class="state">{{this.message}}</div>
+
+  <div class="container">
+    {{#if this.isWinner}}
+      <div class="result">
+        {{#unless this.isDraw}}The winner is {{/unless}}{{this.winner}}
+      </div>
+    {{/if}}
+    <div class="grid">
+      {{#each @model.positions as |squarenumber|}}
+        <Square @player={{this.symbol}}
+                @number={{squarenumber}}
+                @content={{this.gameTurns}}
+                @updateTurn={{this.updateTurn}} />
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+<MdlCardActions>
+  <MdlButton @text='Restart' @isRaised="true" {{on 'click' (fn this.restartGame)}}/>
+</MdlCardActions>
